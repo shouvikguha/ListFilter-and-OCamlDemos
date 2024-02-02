@@ -2,8 +2,7 @@ import unittest
 
 def list_filter_function(list):
     if len(list) % 10 != 0:
-        print("Error: List length is not a multiple of 10.")
-        return None
+        raise ValueError("List length is not a multiple of 10.")
 
     final_list = []
     for i in range(len(list)):
@@ -18,10 +17,12 @@ class TestFilterList(unittest.TestCase):
         self.assertEqual(list_filter_function([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]), [1, 5, 7])
 
     def test_not_multiple_of_10(self):
-        self.assertEqual(list_filter_function([1, 2, 3, 4, 5]), "Error: List length is not a multiple of 10.")
+        with self.assertRaises(ValueError): 
+            list_filter_function([1, 2, 3, 4, 5])
 
     def test_empty_list(self):
-        self.assertEqual(list_filter_function([]), "Error: List length is not a multiple of 10.")
+        with self.assertRaises(ValueError): 
+            list_filter_function([])
 
     def test_list_with_identical_elements(self):
         self.assertEqual(list_filter_function([1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), [1])
